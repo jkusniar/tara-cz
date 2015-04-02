@@ -1,0 +1,7 @@
+#ifndef _tara_cz_icpp_init_stub
+#define _tara_cz_icpp_init_stub
+#include "CtrlLib/init"
+#include "PostgreSQL/init"
+#include "DropGrid/init"
+#include "Report/init"
+#endif

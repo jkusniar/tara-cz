@@ -1,0 +1,166 @@
+LAYOUT(MainWinLayout, 676, 340)
+	ITEM(GridCtrl, clients, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).TabChangesRow(false).LeftPosZ(8, 656).TopPosZ(72, 100))
+	ITEM(MenuBar, menu, LeftPosZ(8, 648).TopPosZ(8, 24))
+	ITEM(ToolBar, toolbar, LeftPosZ(8, 648).TopPosZ(40, 24))
+	ITEM(GridCtrl, patients, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).TabChangesRow(false).LeftPosZ(8, 656).TopPosZ(204, 100))
+	ITEM(Splitter, splitter, LeftPosZ(12, 648).TopPosZ(180, 15))
+END_LAYOUT
+
+LAYOUT(RecordsWinLayout, 816, 476)
+	ITEM(GridCtrl, records, Sorting(false).MultiSorting(false).ColorRows(true).Appending(true).LeftPosZ(4, 128).TopPosZ(4, 468))
+	ITEM(LabelBox, recordbox, LeftPosZ(136, 676).TopPosZ(0, 444))
+	ITEM(Button, print_rec, SetLabel(t_("Print record..")).HSizePosZ(700, 8).TopPosZ(248, 20))
+	ITEM(Label, skk_lbl, SetLabel(t_("SKK:")).HSizePosZ(700, 8).TopPosZ(396, 21))
+	ITEM(Label, skk, SetLabel(t_("0.00")).HSizePosZ(700, 8).TopPosZ(420, 21))
+	ITEM(Label, dv___5, SetLabel(t_("Invoice Id:")).HSizePosZ(700, 8).TopPosZ(176, 21))
+	ITEM(Label, inv_id, HSizePosZ(700, 8).TopPosZ(200, 21))
+	ITEM(Label, sum, SetLabel(t_("0.00")).SetFont(StdFont().Bold()).HSizePosZ(700, 8).TopPosZ(372, 21))
+	ITEM(Button, print_inv, SetLabel(t_("Print invoice..")).HSizePosZ(700, 8).TopPosZ(224, 20))
+	ITEM(Label, dv___9, SetLabel(t_("Payment date:")).HSizePosZ(700, 8).TopPosZ(272, 21))
+	ITEM(Button, print_bill, SetLabel(t_("Print bill..")).HSizePosZ(700, 8).TopPosZ(320, 20))
+	ITEM(Label, payment_date, HSizePosZ(700, 8).TopPosZ(296, 21))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(752, 60).TopPosZ(452, 20))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(688, 60).TopPosZ(452, 20))
+	ITEM(LineEdit, text, LeftPosZ(140, 668).TopPosZ(16, 156))
+	ITEM(GridCtrl, items, ResizeColMode(0).ColorRows(true).Appending(true).Removing(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(140, 556).TopPosZ(176, 264))
+	ITEM(Label, dv___16, SetLabel(t_("Sum [EUR]:")).SetFont(StdFont().Bold()).HSizePosZ(700, 8).TopPosZ(348, 21))
+END_LAYOUT
+
+LAYOUT(SpeciesLovLayout, 500, 300)
+	ITEM(GridCtrl, species, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(4, 140))
+	ITEM(GridCtrl, breed, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(148, 144))
+END_LAYOUT
+
+LAYOUT(TitleLovLayout, 500, 300)
+	ITEM(GridCtrl, titles, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(4, 492).TopPosZ(4, 292))
+END_LAYOUT
+
+LAYOUT(ProductLovLayout, 500, 300)
+	ITEM(GridCtrl, products, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(4, 492).TopPosZ(4, 292))
+END_LAYOUT
+
+LAYOUT(AddressLovLayout, 500, 300)
+	ITEM(GridCtrl, cities, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(4, 136))
+	ITEM(GridCtrl, streets, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(144, 152))
+END_LAYOUT
+
+LAYOUT(InputLovLayout, 272, 64)
+	ITEM(EditString, name, NotNull(true).MaxChars(20).LeftPosZ(124, 144).TopPosZ(8, 19))
+	ITEM(Label, label, LeftPosZ(4, 116).VSizePosZ(8, 35))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(136, 64).TopPosZ(36, 20))
+	ITEM(Button, ok, SetLabel(t_("OK")).HCenterPosZ(64, 100).TopPosZ(36, 20))
+END_LAYOUT
+
+LAYOUT(InvoiceChoiceWinLayout, 328, 244)
+	ITEM(LabelBox, payment_type_lbl, SetLabel(t_("Payment type")).LeftPosZ(12, 304).TopPosZ(8, 68))
+	ITEM(LabelBox, dv___1, SetLabel(t_("When")).LeftPosZ(12, 304).TopPosZ(84, 124))
+	ITEM(Label, payment_date_lbl, SetLabel(t_("Payment date:")).LeftPosZ(24, 148).TopPosZ(180, 21))
+	ITEM(Label, dv___3, SetLabel(t_("Creation date:")).LeftPosZ(24, 148).TopPosZ(152, 21))
+	ITEM(Label, delivery_date_lbl, SetLabel(t_("Delivery date:")).LeftPosZ(24, 148).TopPosZ(124, 21))
+	ITEM(DropDate, payment_date, NotNull(true).LeftPosZ(176, 132).TopPosZ(180, 19))
+	ITEM(DropDate, delivery_date, NotNull(true).LeftPosZ(176, 132).TopPosZ(124, 19))
+	ITEM(DropDate, creation_date, NotNull(true).LeftPosZ(176, 132).TopPosZ(152, 19))
+	ITEM(Option, payed_now, NotNull(true).SetLabel(t_("Invoice payed now")).LeftPosZ(24, 284).TopPosZ(104, 16))
+	ITEM(Button, ok, SetLabel(t_("OK")).HCenterPosZ(64, 120).TopPosZ(216, 20))
+	ITEM(Switch, payment_type, LeftPosZ(24, 272).TopPosZ(28, 16))
+END_LAYOUT
+
+LAYOUT(PaymentDateWinLayout, 280, 60)
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(216, 60).TopPosZ(36, 20))
+	ITEM(DropDate, payment_date, NotNull(true).LeftPosZ(128, 148).TopPosZ(8, 19))
+	ITEM(Label, dv___2, SetLabel(t_("Payment date:")).LeftPosZ(4, 120).TopPosZ(8, 21))
+END_LAYOUT
+
+LAYOUT(LoginWinLayout, 216, 124)
+	ITEM(EditString, login, NotNull(true).LeftPosZ(72, 140).TopPosZ(28, 19))
+	ITEM(EditString, password, LeftPosZ(72, 140).TopPosZ(52, 19))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(152, 60).TopPosZ(100, 20))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(84, 60).TopPosZ(100, 20))
+	ITEM(Label, dv___4, SetLabel(t_("Name:")).LeftPosZ(8, 60).TopPosZ(28, 21))
+	ITEM(Label, dv___5, SetLabel(t_("Password:")).LeftPosZ(8, 60).TopPosZ(52, 20))
+	ITEM(Option, store_login, SetLabel(t_("Remember login data")).LeftPosZ(8, 204).TopPosZ(76, 16))
+	ITEM(EditString, dbname, NotNull(true).LeftPosZ(72, 140).TopPosZ(4, 19))
+	ITEM(Label, dv___8, SetLabel(t_("Database:")).LeftPosZ(8, 60).TopPosZ(4, 20))
+END_LAYOUT
+
+LAYOUT(InvoiceDataWinLayout, 612, 124)
+	ITEM(Label, dv___0, SetLabel(t_("Address:")).LeftPosZ(4, 92).TopPosZ(28, 21))
+	ITEM(EditString, address, LeftPosZ(100, 228).TopPosZ(28, 19))
+	ITEM(Label, dv___2, SetLabel(t_("Phone 1:")).LeftPosZ(4, 92).TopPosZ(52, 21))
+	ITEM(EditString, phone1, LeftPosZ(100, 164).TopPosZ(52, 19))
+	ITEM(Label, dv___4, SetLabel(t_("Phone 2:")).LeftPosZ(4, 92).TopPosZ(76, 21))
+	ITEM(EditString, phone2, LeftPosZ(100, 164).TopPosZ(76, 19))
+	ITEM(Label, dv___6, SetLabel(t_("IC:")).LeftPosZ(336, 92).TopPosZ(4, 21))
+	ITEM(EditString, ic, LeftPosZ(432, 176).TopPosZ(4, 19))
+	ITEM(Label, dv___8, SetLabel(t_("DIC:")).LeftPosZ(336, 92).TopPosZ(28, 21))
+	ITEM(EditString, dic, LeftPosZ(432, 176).TopPosZ(28, 19))
+	ITEM(Label, dv___10, SetLabel(t_("ICDPH:")).LeftPosZ(336, 92).TopPosZ(52, 21))
+	ITEM(EditString, icdph, LeftPosZ(432, 176).TopPosZ(52, 19))
+	ITEM(Label, dv___12, SetLabel(t_("Bank acc. num.:")).LeftPosZ(336, 92).TopPosZ(72, 21))
+	ITEM(EditString, acc_num, LeftPosZ(432, 176).TopPosZ(76, 19))
+	ITEM(Label, dv___14, SetLabel(t_("Name:")).LeftPosZ(4, 92).TopPosZ(4, 21))
+	ITEM(EditString, name, LeftPosZ(100, 228).TopPosZ(4, 19))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(480, 60).TopPosZ(100, 20))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(548, 60).TopPosZ(100, 20))
+END_LAYOUT
+
+LAYOUT(ComplexStatsLayout, 424, 380)
+	ITEM(LabelBox, dv___0, SetLabel(t_("Interval of statistics")).LeftPosZ(4, 416).TopPosZ(0, 44))
+	ITEM(Switch, interval, LeftPosZ(8, 408).TopPosZ(16, 16))
+	ITEM(LabelBox, dv___2, SetLabel(t_("Dates for statistics")).LeftPosZ(4, 416).TopPosZ(48, 92))
+	ITEM(DropDate, date_from, LeftPosZ(148, 124).TopPosZ(112, 19))
+	ITEM(DropDate, date_to, LeftPosZ(276, 124).TopPosZ(112, 19))
+	ITEM(DropDate, month_date, LeftPosZ(148, 124).TopPosZ(88, 19))
+	ITEM(Label, dv___6, SetLabel(t_("Day date:")).LeftPosZ(8, 136).TopPosZ(64, 20))
+	ITEM(Label, dv___7, SetLabel(t_("Date range:")).LeftPosZ(8, 136).TopPosZ(112, 20))
+	ITEM(Label, dv___8, SetLabel(t_("Month date:")).LeftPosZ(8, 136).TopPosZ(88, 20))
+	ITEM(DropDate, day_date, LeftPosZ(148, 124).TopPosZ(64, 19))
+	ITEM(Label, dv___10, SetLabel(t_("Record count:")).LeftPosZ(4, 120).TopPosZ(144, 24))
+	ITEM(Label, record_count, LeftPosZ(128, 72).TopPosZ(144, 24))
+	ITEM(Label, dv___12, SetLabel(t_("Income [EUR]:")).LeftPosZ(204, 116).TopPosZ(144, 24))
+	ITEM(Label, income, LeftPosZ(324, 96).TopPosZ(144, 24))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(360, 60).TopPosZ(356, 20))
+	ITEM(Label, dv___15, SetLabel(t_("Income (no invoice):")).LeftPosZ(204, 116).TopPosZ(196, 22))
+	ITEM(Label, income_noinv, LeftPosZ(324, 96).TopPosZ(196, 22))
+	ITEM(Label, dv___17, SetLabel(t_("Income (invoice):")).RightPosZ(104, 116).TopPosZ(172, 22))
+	ITEM(Label, income_inv, LeftPosZ(324, 96).TopPosZ(172, 22))
+	ITEM(TabCtrl, tablist, LeftPosZ(4, 416).TopPosZ(224, 128))
+	ITEM(Label, dv___20, SetLabel(t_("Client count:")).HSizePosZ(4, 300).TopPosZ(172, 21))
+	ITEM(Label, client_count, LeftPosZ(128, 72).TopPosZ(172, 21))
+END_LAYOUT
+
+LAYOUT(NewPhraseLayout, 456, 256)
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(328, 60).TopPosZ(232, 20))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(392, 60).TopPosZ(232, 20))
+	ITEM(EditString, name, NotNull(true).LeftPosZ(140, 172).TopPosZ(4, 19))
+	ITEM(Label, dv___3, SetLabel(t_("Phrase name:")).LeftPosZ(4, 132).TopPosZ(4, 20))
+	ITEM(Label, dv___4, SetLabel(t_("Phrase text:")).LeftPosZ(4, 132).TopPosZ(28, 20))
+	ITEM(LineEdit, phrase_text, LeftPosZ(4, 448).TopPosZ(52, 176))
+END_LAYOUT
+
+LAYOUT(PhraseLovLayout, 500, 300)
+	ITEM(GridCtrl, names, ColorRows(true).Appending(true).Removing(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(4, 104).TopPosZ(4, 292))
+	ITEM(LineEdit, phrase_text, LeftPosZ(112, 384).TopPosZ(4, 292))
+END_LAYOUT
+
+LAYOUT(OptionsLayout, 284, 52)
+	ITEM(Label, dv___0, SetLabel(t_("Language")).LeftPosZ(4, 100).TopPosZ(4, 21))
+	ITEM(DropList, lang, LeftPosZ(108, 172).TopPosZ(4, 19))
+	ITEM(Button, ok, SetLabel(t_("OK")).HCenterPosZ(68, 104).TopPosZ(28, 20))
+END_LAYOUT
+
+LAYOUT(InvoiceListChoiceLayout, 300, 76)
+	ITEM(DropDate, date_from, NotNull(true).LeftPosZ(140, 156).TopPosZ(4, 19))
+	ITEM(DropDate, date_to, NotNull(true).LeftPosZ(140, 156).TopPosZ(28, 19))
+	ITEM(Label, dv___2, SetLabel(t_("Date from:")).LeftPosZ(4, 132).TopPosZ(4, 21))
+	ITEM(Label, dv___3, SetLabel(t_("Date to:")).LeftPosZ(4, 132).TopPosZ(28, 21))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(232, 64).VCenterPosZ(20, 24))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(164, 64).TopPosZ(52, 20))
+END_LAYOUT
+
+LAYOUT(PasswordLayout, 236, 56)
+	ITEM(EditString, password, NotNull(true).LeftPosZ(4, 228).TopPosZ(4, 19))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(160, 72).TopPosZ(32, 20))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(84, 72).TopPosZ(32, 20))
+END_LAYOUT
+

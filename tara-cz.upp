@@ -1,0 +1,40 @@
+description "Tara CZ - veterinary DB client\377";
+
+uses
+	CtrlLib,
+	PostgreSQL,
+	DropGrid,
+	Report;
+
+file
+	invoice.h,
+	services.cpp,
+	services.h,
+	tara-cz.rc,
+	mainwin.cpp charset "UTF-8",
+	tarawin.lay,
+	invoice.cpp charset "UTF-8",
+	recordswin.cpp,
+	titlelovwin.cpp,
+	specieslovwin.cpp,
+	productlovwin.cpp,
+	addresslovwin.cpp,
+	invoicechoicewin.cpp,
+	loginwin.cpp,
+	invoicedatawin.cpp charset "UTF-8",
+	tara-cz.iml,
+	complexstatswin.cpp,
+	phraselovwin.cpp,
+	convert.h,
+	slovakconvert.cpp,
+	invoicelist.cpp,
+	constants.h,
+	mainwin.h,
+	tara-cz.t charset "UTF-8",
+	main.cpp,
+	taradb.sch,
+	lovcache.cpp;
+
+mainconfig
+	"" = "GUI";
+
