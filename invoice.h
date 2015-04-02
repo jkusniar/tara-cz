@@ -17,8 +17,20 @@ enum RecordItemType
 	ritAmount,
 	ritUnit,
 	ritUnitPrice,
-	ritPrice
+	ritPrice,
+	ritVatrate,				/*VAT payer only*/
+	ritVat,					/*VAT payer only*/
+	ritPriceInclVat			/*VAT payer only*/
 };
+
+enum VatSummaryItemType
+{
+	vsitVatrate = 0,	/* sadzba */
+	vsitPrice,			/* cena bez DPH */
+	vsitVat,			/* DPH */
+	vsitPriceInclVat	/* cena s DPH */
+};
+
 
 class InvoiceData : Moveable<InvoiceData> {
 public:
@@ -46,6 +58,7 @@ public:
 	String rec_text;	
 	//items
 	Vector< VectorMap<int, String> > record_items;
+	Vector< VectorMap<int, String> > vat_summary;	/*VAT payers only*/
 	double summary_price;
 };
 
@@ -63,7 +76,9 @@ public:
 
 	// veterinary data
 	String vet_name, vet_address, vet_phone1, vet_phone2;
-	String vet_ic, vet_dic, vet_icdph, vet_bank_acc;	
+	String vet_ic, vet_dic, vet_icdph, vet_bank_acc;
+	Date vat_payer_from;
+		
 private:
 	Report output;
 	
@@ -72,6 +87,7 @@ private:
 	void formatClientData(StringBuffer &buf, InvoiceData &invoice);
 	void formatPatientData(StringBuffer &buf, InvoiceData &invoice);
 	void formatInvoiceItems(StringBuffer &buf, InvoiceData &invoice);
+	void formatInvoiceItemsVATPayer(StringBuffer &buf, InvoiceData &invoice);
 	void formatBillHeader(StringBuffer &buf, InvoiceData &invoice, bool isStandelone = true);
 	void formatBillPrice(StringBuffer &buf, InvoiceData &invoice);
 	void formatRecordHeader(StringBuffer &buf, InvoiceData &invoice);

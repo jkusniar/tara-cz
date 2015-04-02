@@ -10,7 +10,7 @@ file
 	invoice.h,
 	services.cpp,
 	services.h,
-	tara-cz.rc,
+	tara.rc,
 	mainwin.cpp charset "UTF-8",
 	tarawin.lay,
 	invoice.cpp charset "UTF-8",
@@ -22,7 +22,7 @@ file
 	invoicechoicewin.cpp,
 	loginwin.cpp,
 	invoicedatawin.cpp charset "UTF-8",
-	tara-cz.iml,
+	tara.iml,
 	complexstatswin.cpp,
 	phraselovwin.cpp,
 	convert.h,
@@ -30,10 +30,11 @@ file
 	invoicelist.cpp,
 	constants.h,
 	mainwin.h,
-	tara-cz.t charset "UTF-8",
+	tara.t charset "UTF-8",
 	main.cpp,
 	taradb.sch,
-	lovcache.cpp;
+	lovcache.cpp,
+	src.tpp;
 
 mainconfig
 	"" = "GUI";

@@ -31,7 +31,7 @@ RecordsWin::RecordsWin(int lang)
 	
 	items.AddIndex(ID);
 	items.AddColumn(PROD_ID, t_("Product")).Edit(product).SetConvert(product).Width(239);
-	items.AddColumn(AMOUNT, t_("Amount")).Edit(amount).SetConvert(Single<ConvertLocalized>()).Width(65);
+	items.AddColumn(AMOUNT, t_("Amount")).Edit(amount).SetConvert(Single<ConvertAmount>()).Width(65);
 	items.AddColumn(PROD_PRICE, t_("Unit price")).Edit(price).SetConvert(Single<ConvertMoney>()).Width(95);
 	items.AddColumn(UNIT_ID, t_("Unit")).Edit(unit.SetEditable(false)).SetConvert(unit).Width(60);
 	items.AddColumn(ITEM_PRICE, t_("Item price")).Edit(final_price.SetEditable(false)).SetConvert(Single<ConvertMoney>()).Width(80);
@@ -60,19 +60,6 @@ RecordsWin::RecordsWin(int lang)
 	print_rec.WhenAction = THISBACK(when_print_record);
 	
 	sum_dbl = 0.0;
-	
-	// prepare invoice formatter
-	InvoiceDataWin inv_data;
-	LoadFromFile(inv_data, "tara_invoice.cfg");
-	formatter.vet_name = ~inv_data.name;
-	formatter.vet_address = ~inv_data.address;
-	formatter.vet_phone1 = ~inv_data.phone1;
-	formatter.vet_phone2 = ~inv_data.phone2;
-	formatter.vet_ic = ~inv_data.ic;
-	formatter.vet_dic = ~inv_data.dic;
-	formatter.vet_icdph = ~inv_data.icdph;
-	formatter.vet_bank_acc = ~inv_data.acc_num;
-	formatter.lang = lang;
 }
 
 void RecordsWin::when_records_change_row()
@@ -249,7 +236,7 @@ void RecordsWin::when_print_inv()
 			.Where(ID == records(ID));
 		}
 		
-		Perform(formatter.formatFullInvoice(findInvoice(records(ID))));
+		Perform(formatter->formatFullInvoice(findInvoice(records(ID), formatter->vat_payer_from))); // TODO spravne volanie podla platby DPH
 		/*
 			static FileSel fs;
 			static bool b;
@@ -286,14 +273,14 @@ void RecordsWin::when_print_bill()
 		
 		payment_date.SetText(~AsString(~payDtDlg.payment_date));
 		
-		Perform(formatter.formatBill(findBill(records(ID))));
+		Perform(formatter->formatBill(findBill(records(ID))));
 	}
 }
 
 void RecordsWin::when_print_record()
 {
 	checksave_record_data(records.GetCursorId());
-	Perform(formatter.formatRecord(findRecord(records(ID))));
+	Perform(formatter->formatRecord(findRecord(records(ID))));
 }
 
 void RecordsWin::when_item_inserted()
@@ -306,6 +293,8 @@ void RecordsWin::when_item_inserted()
 		(PROD_PRICE, items(PROD_PRICE))
 	;
 	
+	
+	// TODO rework RETURNING ID in previous select
 	SQL & Select(SqlMax(ID)).From(RECORD_ITEM);
 	if (SQL.Fetch())
 		items.Set(ID, SQL[0]);
@@ -423,4 +412,9 @@ double RecordsWin::custom_round_double(double d, int n)
 String convertEurToSkk(double eur)
 {
 	return ConvertMoney().Format((eur * 30.1260));
+}
+
+void RecordsWin::setInvoiceFormatter(InvoiceFormatter* fmt)
+{
+	formatter = fmt;
 }

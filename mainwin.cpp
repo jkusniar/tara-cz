@@ -5,7 +5,7 @@
 #include "convert.h"
 
 #define IMAGECLASS Images
-#define IMAGEFILE <tara-cz/tara.iml>
+#define IMAGEFILE <tara-cz/tara-cz.iml>
 #include <Draw/iml_source.h>
 
 #include <Core/Hash.h>
@@ -218,6 +218,7 @@ void MainWin::prepareInvoiceFormatter() {
 	formatter.vet_dic = ~inv_data.dic;
 	formatter.vet_icdph = ~inv_data.icdph;
 	formatter.vet_bank_acc = ~inv_data.acc_num;
+	formatter.vat_payer_from = ~inv_data.vat_from;
 	formatter.lang = lang;
 }
 
@@ -440,7 +441,8 @@ void MainWin::when_patiens_menu(Bar &menu)
 void MainWin::when_patients_records()
 {	
 	RecordsWin recordswin(lang);
-	
+	recordswin.setInvoiceFormatter(&formatter);
+		
 	// fetch all patient's records
 	SQL & Select(ID.Of(RECORD), REC_DATE.Of(RECORD), DATA.Of(RECORD), INVOICE_ID.Of(RECORD), PAYED.Of(RECORD))
 		.From(RECORD)
@@ -517,7 +519,7 @@ void MainWin::when_patients_records()
 					    		(INV_PAYMENT_DATE, ~inv_ch_dlg.payment_date)
 							.Where(ID == recordswin.records(ID));
 						
-						Perform(formatter.formatFullInvoice(findInvoice(recordswin.records(ID))));
+						Perform(formatter.formatFullInvoice(findInvoice(recordswin.records(ID), formatter.vat_payer_from)));
 					}
 				}
 			}
@@ -553,7 +555,7 @@ void MainWin::when_find_invoice()
 	{
 		SQL & Select(ID).From(RECORD).Where(INVOICE_ID == ~dlg.name);
 		if(SQL.Fetch()) {
-			Perform(formatter.formatFullInvoice(findInvoice(SQL[ID])));
+			Perform(formatter.formatFullInvoice(findInvoice(SQL[ID], formatter.vat_payer_from)));
 		}
 		else {
 			PromptOK(Format(t_("Invoice %s not found"), ~dlg.name));
@@ -563,7 +565,10 @@ void MainWin::when_find_invoice()
 
 void MainWin::when_lov_dialog()
 {
-	ProductLovWin tab1;
+	InvoiceDataWin inv_data;
+	LoadFromFile(inv_data, "tara_invoice.cfg");
+	
+	ProductLovWin tab1(~inv_data.vat);
 	SpeciesLovWin tab2;
 	AddressLovWin tab3;
 	TitleLovWin tab4;
@@ -869,7 +874,7 @@ void MainWin::when_invoice_mass_print()
 	invDateDlg.date_to.SetData(GetSysDate());
 	
 	if (invDateDlg.Run(true) == IDOK) {
-		Vector<InvoiceData>& invoices = findInvoices(invDateDlg.date_from, invDateDlg.date_to);
+		Vector<InvoiceData>& invoices = findInvoices(invDateDlg.date_from, invDateDlg.date_to, formatter.vat_payer_from);
 
 		if (invoices.GetCount() < 1) {
 			PromptOK(

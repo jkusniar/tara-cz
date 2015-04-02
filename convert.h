@@ -32,6 +32,12 @@ public: ConvertMoney() : ConvertDouble() {Pattern("%2!nl");}
 //public: ConvertMoney() : ConvertDouble() {Pattern("%2,!nl");} // ked nejde sk_SK locale pomoze toto
 };
 
+class ConvertAmount : public ConvertDouble
+{
+public: ConvertAmount() : ConvertDouble() {Pattern("%4!nl");}
+//public: ConvertMoney() : ConvertDouble() {Pattern("%2,!nl");} // ked nejde sk_SK locale pomoze toto
+};
+
 class ConvertLocalized : public ConvertDouble
 {
 public: ConvertLocalized() : ConvertDouble() {Pattern("%10vl");}

@@ -50,6 +50,13 @@ void Add (DropGrid& list, const VectorMap<Value, Value>& vec)
 	}
 }
 
+void Add (DropGrid& list, SqlId ID_COLUMN, SqlId LABEL_COLUMN, SqlId TABLE_ID) {
+	list.Clear();
+	SQL & Select(ID_COLUMN, LABEL_COLUMN).From(TABLE_ID).OrderBy(LABEL_COLUMN);
+	while(SQL.Fetch())
+		list.Add(SQL[ID_COLUMN], SQL[LABEL_COLUMN]);
+}
+
 void SimpleLovCache::refresh()
 {
 	if (!_cache.IsEmpty())
@@ -101,12 +108,6 @@ void refresh_cache_all()
 	
 	// title cache
 	title_cache.refresh();
-	
-	// unit cache
-	unit_cache.refresh();
-	
-	// product cache
-	product_cache.refresh();
 	
 	// phrase cache
 	phrase_cache.refresh();

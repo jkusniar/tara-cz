@@ -393,6 +393,14 @@ T_("Bank acc. num.:")
 csCZ("\304\214\303\255slo \303\272\304\215tu:")
 skSK("\304\214\303\255slo \303\272\304\215tu:")
 
+T_("VAT payer:")
+csCZ("Pl\303\241tce DPH:")
+skSK("Platca DPH:")
+
+T_("VAT payer from:")
+csCZ("Pl\303\241tce DPH od:")
+skSK("Platca DPH od:")
+
 T_("Interval of statistics")
 csCZ("Interval statistik")
 skSK("Interval \305\241tatist\303\255k")
@@ -728,25 +736,6 @@ csCZ("Jm\303\251no fr\303\241zy")
 skSK("Meno fr\303\241zy")
 
 
-// invoicelist.cpp
-
-T_("Create date")
-csCZ("Datum vystaven\303\255")
-skSK("D\303\241tum vystavenia")
-
-T_("Invoice num")
-csCZ("\304\214\303\255slo dokladu")
-skSK("\304\214\303\255slo fakt\303\272ry")
-
-T_("Invoice total")
-csCZ("Tr\305\276by")
-skSK("Prijat\303\251 v hotovosti")
-
-T_("Invoice list total:")
-csCZ("Tr\305\276by celkem:")
-skSK("Spolu prijat\303\251 v hotovosti:")
-
-
 // main.cpp
 
 T_("Error: %s")
@@ -771,3 +760,29 @@ skSK("\304\214\303\255seln\303\255ky")
 T_("Street index")
 csCZ("Seznam ulic")
 skSK("Zoznam ul\303\255c")
+
+
+// Obsolete
+
+T_("Create date")
+csCZ("Datum vystaven\303\255")
+skSK("D\303\241tum vystavenia")
+
+T_("Invoice num")
+csCZ("\304\214\303\255slo dokladu")
+skSK("\304\214\303\255slo fakt\303\272ry")
+
+T_("Invoice total")
+csCZ("Tr\305\276by")
+skSK("Prijat\303\251 v hotovosti")
+
+T_("Invoice list total:")
+csCZ("Tr\305\276by celkem:")
+skSK("Spolu prijat\303\251 v hotovosti:")
+
+
+// DropGrid.cpp
+
+T_("Select a value.")
+csCZ("Vyber hodnotu.")
+skSK("Vyber hodnotu.")

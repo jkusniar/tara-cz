@@ -24,6 +24,7 @@ void InvoiceData::clear() {
     ...
     */
     record_items.Clear();
+    vat_summary.Clear();
 	summary_price = 0.0;
 }
 
@@ -44,7 +45,11 @@ Report& InvoiceFormatter::formatFullInvoice(InvoiceData& invoice) {
 	buf.Cat(":: ");
 	formatPatientData(buf, invoice);
 	buf.Cat(":: ");
-	formatInvoiceItems(buf, invoice);
+	if (invoice.create_date >= vat_payer_from) {
+		formatInvoiceItemsVATPayer(buf, invoice);
+	} else {
+		formatInvoiceItems(buf, invoice);
+	}
 	buf.Cat("}}");
 
 	if (!AsString(invoice.payed_date).IsEmpty() && lang != LANG_CZ)
@@ -81,7 +86,11 @@ Report& InvoiceFormatter::formatFullInvoices(Vector<InvoiceData>& invoices) {
 		buf.Cat(":: ");
 		formatPatientData(buf, invoices[i]);
 		buf.Cat(":: ");
-		formatInvoiceItems(buf, invoices[i]);
+		if (invoices[i].create_date >= vat_payer_from) {
+			formatInvoiceItemsVATPayer(buf, invoices[i]);
+		} else {
+			formatInvoiceItems(buf, invoices[i]);
+		}
 		buf.Cat("}}");
 	
 		if (!AsString(invoices[i].payed_date).IsEmpty() && lang != LANG_CZ)
@@ -250,15 +259,55 @@ void InvoiceFormatter::formatInvoiceItems(StringBuffer &buf, InvoiceData &invoic
 	}
 	
 	buf.Cat("&[*A1 " + AsString(t_("Supplier is not subject to VAT")) + "]");
-	/*
-	if (lang == LANG_SK)
-	{
-		buf.Cat("&&[A1 Celková fakturovaná suma v SKK: -|"); //SKK
-		buf.Cat(fixFuckedLinuxFormating(convertEurToSkk(invoice.summary_price)));
-		buf.Cat("]");										//SKKend
-		buf.Cat("&&[A0> Konverzný kurz 30,1260 SKK/EUR]");	//SKK
+	
+	if (lang == LANG_CZ) {
+		buf.Cat("&&[A0> Vystavil: " + AsString(vet_name) + "]");
 	}
-	*/
+}
+
+void InvoiceFormatter::formatInvoiceItemsVATPayer(StringBuffer &buf, InvoiceData &invoice) {
+	buf.Cat("[A1 {{1:4:2:2:2:2:1:2f4 ");
+	buf.Cat("[*A1 " + AsString(t_("N.")) + "] :: [*A1 " + AsString(t_("Description")) + "] :: ");
+	buf.Cat("[*A1 " + AsString(t_("Unit")) + "] :: [*A1 " + AsString(t_("Amount")) + "]");
+	buf.Cat(" :: [*A1 " + AsString(t_("Unit price")) + "] :: [*A1 " + AsString(t_("Base price")) + "] ");
+	buf.Cat(" :: [*A1 " + AsString(t_("VAT rate")) + "] :: [*A1 " + AsString(t_("Price incl. VAT")) + "] ");
+	for (int i=0; i<invoice.record_items.GetCount(); i++)
+	{
+		const VectorMap<int, String> &vmap = invoice.record_items[i];
+		buf.Cat(":: ");
+		buf.Cat(AsString(i+1)); buf.Cat(":: ");
+		buf.Cat(vmap.Get(ritProduct)); buf.Cat(":: ");
+		buf.Cat(vmap.Get(ritUnit)); buf.Cat(":: ");
+		buf.Cat(fixFuckedLinuxFormating(vmap.Get(ritAmount))); buf.Cat(":: ");
+		buf.Cat(fixFuckedLinuxFormating(vmap.Get(ritUnitPrice))); buf.Cat(" " + AsString(t_("CUR")) + ":: ");
+		buf.Cat(fixFuckedLinuxFormating(vmap.Get(ritPrice))); buf.Cat(" " + AsString(t_("CUR")) + ":: ");
+		buf.Cat(vmap.Get(ritVatrate)); buf.Cat(":: ");
+		buf.Cat(fixFuckedLinuxFormating(vmap.Get(ritPriceInclVat))); buf.Cat(" " + AsString(t_("CUR")) + " ");
+	}
+	buf.Cat("}}&&");
+	buf.Cat("[*A1 " + AsString(t_("Total invoiced:")) + " -|");
+	buf.Cat(fixFuckedLinuxFormating(ConvertMoney().Format(invoice.summary_price)));
+	buf.Cat(" " + AsString(t_("CUR")) +  "]]");
+
+	if (lang == LANG_CZ) {
+		buf.Cat("&[*A1 " + AsString(t_("Total payed:")) + " -|");
+		buf.Cat(fixFuckedLinuxFormating(ConvertMoney().Format(invoice.summary_price)));
+		buf.Cat(" " + AsString(t_("CUR")) +  "]");
+		buf.Cat("&&");
+	}
+	
+	buf.Cat("[A1 {{1:2:2:2f4 ");
+	buf.Cat("[*A1 " + AsString(t_("VAT rate")) + "] :: [*A1 " + AsString(t_("Base price")) + "] ");
+	buf.Cat(" :: [*A1 " + AsString(t_("VAT")) + "] :: [*A1 " + AsString(t_("Price incl. VAT")) + "] ");
+	for (int i=0; i<invoice.vat_summary.GetCount(); i++) {
+		const VectorMap<int, String> &vmap = invoice.vat_summary[i];
+		buf.Cat(":: ");
+		buf.Cat(vmap.Get(vsitVatrate)); buf.Cat(":: ");
+		buf.Cat(fixFuckedLinuxFormating(vmap.Get(vsitPrice))); buf.Cat(" " + AsString(t_("CUR")) + ":: ");
+		buf.Cat(fixFuckedLinuxFormating(vmap.Get(vsitVat))); buf.Cat(" " + AsString(t_("CUR")) + ":: ");
+		buf.Cat(fixFuckedLinuxFormating(vmap.Get(vsitPriceInclVat))); buf.Cat(" " + AsString(t_("CUR")) + " ");
+	}
+	buf.Cat("}} ");
 	
 	if (lang == LANG_CZ) {
 		buf.Cat("&&[A0> Vystavil: " + AsString(vet_name) + "]");

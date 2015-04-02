@@ -5,14 +5,18 @@ InvoiceDataWin::InvoiceDataWin()
 	CtrlLayoutOKCancel(*this, t_("Invoice data"));
 	
 	//default data
-	name.SetData("MVDr. Veronika Žabková");
-	address.SetData("Ľubietová 127, 976 55");
-	phone1.SetData("0903 169037");
-	phone2.SetData("0908 123456");
-	ic.SetData("12 345 678");
-	dic.SetData("0909234785");
-	icdph.SetData("1234321211");
-	acc_num.SetData("0987349/1111");
+	name.SetData("Doctor Name");
+	address.SetData("Doctor address");
+	phone1.SetData("Phone no");
+	phone2.SetData("Phone no2");
+	ic.SetData("ID");
+	dic.SetData("ID TAX");
+	icdph.SetData("ID VAT");
+	acc_num.SetData("Bank acc.");
+	vat.SetData(false);
+	vat_from.Enable(false);
+
+	vat.WhenAction = THISBACK(when_vat_changed);
 }
 
 void InvoiceDataWin::Serialize(Stream &s)
@@ -26,4 +30,11 @@ void InvoiceDataWin::Serialize(Stream &s)
 	s % dic;
 	s % icdph;
 	s % acc_num;
+	s % vat;
+	s % vat_from;
+}
+
+void InvoiceDataWin::when_vat_changed()
+{
+	vat_from.Enable(vat.GetData());
 }

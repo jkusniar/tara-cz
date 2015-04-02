@@ -26,22 +26,22 @@ LAYOUT(RecordsWinLayout, 816, 476)
 	ITEM(Label, dv___16, SetLabel(t_("Sum [EUR]:")).SetFont(StdFont().Bold()).HSizePosZ(700, 8).TopPosZ(348, 21))
 END_LAYOUT
 
-LAYOUT(SpeciesLovLayout, 500, 300)
-	ITEM(GridCtrl, species, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(4, 140))
-	ITEM(GridCtrl, breed, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(148, 144))
+LAYOUT(SpeciesLovLayout, 600, 320)
+	ITEM(GridCtrl, species, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(4, 148))
+	ITEM(GridCtrl, breed, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(148, 164))
 END_LAYOUT
 
-LAYOUT(TitleLovLayout, 500, 300)
-	ITEM(GridCtrl, titles, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(4, 492).TopPosZ(4, 292))
+LAYOUT(TitleLovLayout, 600, 320)
+	ITEM(GridCtrl, titles, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(4, 592).TopPosZ(4, 312))
 END_LAYOUT
 
-LAYOUT(ProductLovLayout, 500, 300)
-	ITEM(GridCtrl, products, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(4, 492).TopPosZ(4, 292))
+LAYOUT(ProductLovLayout, 600, 320)
+	ITEM(GridCtrl, products, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).LeftPosZ(4, 592).TopPosZ(4, 312))
 END_LAYOUT
 
-LAYOUT(AddressLovLayout, 500, 300)
-	ITEM(GridCtrl, cities, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(4, 136))
-	ITEM(GridCtrl, streets, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(144, 152))
+LAYOUT(AddressLovLayout, 600, 320)
+	ITEM(GridCtrl, cities, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(4, 140))
+	ITEM(GridCtrl, streets, ColorRows(true).Appending(true).Accepting(true).Canceling(true).Searching(true).Editing(true).HSizePosZ(4, 4).TopPosZ(144, 172))
 END_LAYOUT
 
 LAYOUT(InputLovLayout, 272, 64)
@@ -49,6 +49,17 @@ LAYOUT(InputLovLayout, 272, 64)
 	ITEM(Label, label, LeftPosZ(4, 116).VSizePosZ(8, 35))
 	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(136, 64).TopPosZ(36, 20))
 	ITEM(Button, ok, SetLabel(t_("OK")).HCenterPosZ(64, 100).TopPosZ(36, 20))
+END_LAYOUT
+
+LAYOUT(AddVatrateLayout, 272, 104)
+	ITEM(EditString, label, NotNull(true).MaxChars(20).Tip(t_("e.g. 21%")).LeftPosZ(124, 144).TopPosZ(8, 19))
+	ITEM(Label, dv___1, SetLabel(t_("VAT rate label:")).LeftPosZ(4, 116).VSizePosZ(8, 75))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(136, 64).TopPosZ(80, 20))
+	ITEM(Button, ok, SetLabel(t_("OK")).HCenterPosZ(64, 100).TopPosZ(80, 20))
+	ITEM(EditDoubleNotNull, value, Tip(t_("e.g. 0.21")).LeftPosZ(124, 144).TopPosZ(32, 19))
+	ITEM(EditString, note, MaxChars(100).LeftPosZ(124, 144).TopPosZ(56, 19))
+	ITEM(Label, dv___6, SetLabel(t_("VAT rate value:")).LeftPosZ(4, 116).TopPosZ(32, 20))
+	ITEM(Label, dv___7, SetLabel(t_("Note:")).LeftPosZ(4, 116).TopPosZ(56, 20))
 END_LAYOUT
 
 LAYOUT(InvoiceChoiceWinLayout, 328, 244)
@@ -83,7 +94,7 @@ LAYOUT(LoginWinLayout, 216, 124)
 	ITEM(Label, dv___8, SetLabel(t_("Database:")).LeftPosZ(8, 60).TopPosZ(4, 20))
 END_LAYOUT
 
-LAYOUT(InvoiceDataWinLayout, 612, 124)
+LAYOUT(InvoiceDataWinLayout, 612, 180)
 	ITEM(Label, dv___0, SetLabel(t_("Address:")).LeftPosZ(4, 92).TopPosZ(28, 21))
 	ITEM(EditString, address, LeftPosZ(100, 228).TopPosZ(28, 19))
 	ITEM(Label, dv___2, SetLabel(t_("Phone 1:")).LeftPosZ(4, 92).TopPosZ(52, 21))
@@ -100,8 +111,12 @@ LAYOUT(InvoiceDataWinLayout, 612, 124)
 	ITEM(EditString, acc_num, LeftPosZ(432, 176).TopPosZ(76, 19))
 	ITEM(Label, dv___14, SetLabel(t_("Name:")).LeftPosZ(4, 92).TopPosZ(4, 21))
 	ITEM(EditString, name, LeftPosZ(100, 228).TopPosZ(4, 19))
-	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(480, 60).TopPosZ(100, 20))
-	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(548, 60).TopPosZ(100, 20))
+	ITEM(Button, cancel, SetLabel(t_("Cancel")).LeftPosZ(480, 60).TopPosZ(156, 20))
+	ITEM(Button, ok, SetLabel(t_("OK")).LeftPosZ(548, 60).TopPosZ(156, 20))
+	ITEM(Option, vat, LeftPosZ(100, 164).TopPosZ(108, 16))
+	ITEM(Label, dv___19, SetLabel(t_("VAT payer:")).HSizePosZ(4, 516).VSizePosZ(104, 56))
+	ITEM(Label, dv___20, SetLabel(t_("VAT payer from:")).HSizePosZ(4, 516).TopPosZ(132, 20))
+	ITEM(DropDate, vat_from, LeftPosZ(100, 164).TopPosZ(132, 19))
 END_LAYOUT
 
 LAYOUT(ComplexStatsLayout, 424, 380)

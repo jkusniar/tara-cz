@@ -1,4 +1,4 @@
-#ifndef _tara_mainwin_h_
+#ifndef _tara_cz_mainwin_h_
 #define _tara_cz_mainwin_h_
 
 #include <iostream>
@@ -24,7 +24,7 @@ using namespace Upp;
 #define LAYOUTFILE <tara-cz/tarawin.lay>
 #include <CtrlCore/lay.h>
 
-static const String VERSION = "0.3.3";
+static const String VERSION = "0.3.4";
 
 class MainWin : public WithMainWinLayout<TopWindow> {
 public:
@@ -123,6 +123,7 @@ public:
 	int lang;
 	
 	void checksave_record_data(int recordsCursorId);
+	void setInvoiceFormatter(InvoiceFormatter *fmt);
 
 private:
 
@@ -149,7 +150,7 @@ private:
 	DropGrid 			product, unit;
 	EditDoubleNotNull	amount, price, final_price;
 	
-	InvoiceFormatter formatter;
+	InvoiceFormatter *formatter;
 };
 
 class SpeciesLovWin : public WithSpeciesLovLayout<ParentCtrl> {
@@ -182,16 +183,29 @@ private:
 class ProductLovWin : public WithProductLovLayout<ParentCtrl> {
 public:
 	typedef ProductLovWin CLASSNAME;
-	ProductLovWin();
+	ProductLovWin(bool is_vat_payer);
 
 private:
 	void when_insert();
 	void when_update();
 	void when_new_unit();
+	void when_new_vatrate();
+	void when_new_vatrate_for_product();
+	void when_start_edit();
+	void when_cancel_new_vatrate();
+	void when_products_menu(Bar &menu);
+	
+	Callback1<Bar&> products_default_menu;
 	
 	EditStringNotNull 	name;
 	EditDoubleNotNull 	price;
 	DropGrid			unit;
+	DropGrid			vatrate;
+	EditDouble			price_incl_vat;
+	DropDate			valid_from;
+	DropDate			valid_to;
+	bool 				vat_payer;
+	int					original_product_id;
 };
 
 class AddressLovWin : public WithAddressLovLayout<ParentCtrl> {
@@ -264,6 +278,9 @@ public:
 	InvoiceDataWin();
 	
 	void Serialize(Stream &s);
+	
+private:
+	void when_vat_changed();
 };
 
 enum En_payment_type
@@ -396,6 +413,7 @@ extern VectorMap<int, VectorMap<int, VectorMap<int, String> > > street_cache;
 void refresh_cache_all();
 
 void Add (DropGrid& list, const VectorMap<Value, Value>& vec);
+void Add (DropGrid& list, SqlId ID_COLUMN, SqlId LABEL_COLUMN, SqlId TABLE_ID);
 
 #ifdef _DEBUG
 void initDebugDB(PostgreSQLSession &session);
